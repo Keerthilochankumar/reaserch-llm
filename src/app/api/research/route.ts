@@ -11,6 +11,8 @@ const researchSchema = z.object({
   input: z.string().min(5).max(2000),
 });
 
+export const maxDuration = 300; // 5 minutes
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "~/server/db/mongoose";
 import { ResearchTask, ResearchBrief } from "~/server/db/models";
 
+export const maxDuration = 60;
+
 export async function GET(
   req: NextRequest,
   props: { params: Promise<{ id: string }> }
