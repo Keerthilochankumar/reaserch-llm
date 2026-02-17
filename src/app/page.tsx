@@ -137,9 +137,6 @@ export default function Home() {
           </div>
         </div>
 
-        <button className="flex items-center gap-2 px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors mt-auto">
-          <Settings className="w-4 h-4" /> Settings
-        </button>
       </aside>
 
       {/* Main Content */}
