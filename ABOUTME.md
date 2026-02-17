@@ -1,5 +1,5 @@
 ```markdown
 # Bojjanapalli Keerthi Lochan Kumar
 
-[**Resume**](https://drive.google.com/drive/folders/1eMEt1gnO8xqUyWptaj8bqEBXb3Qy1DJf)
+[**Resume**](https://drive.google.com/file/d/1hv_JKokDNJ46G-aRfYlj9WyMnQHiwk6H/view?usp=sharing)
 ```
