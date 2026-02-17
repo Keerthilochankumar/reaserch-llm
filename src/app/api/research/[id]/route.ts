@@ -4,10 +4,11 @@ import { ResearchTask, ResearchBrief } from "~/server/db/models";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params;
+    const params = await props.params;
+    const { id } = params;
     await dbConnect();
     
     const brief = await ResearchBrief.findOne({ briefId: id });

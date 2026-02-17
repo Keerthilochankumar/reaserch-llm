@@ -79,18 +79,18 @@ export interface SynthesisResult {
 /**
  * Heuristic URL matcher to repair hallucinated or shortened URLs
  */
-function matchUrl(target: string, validUrls: string[], indexHint: number): string {
+function matchUrl(target: string | undefined, validUrls: string[], indexHint: number): string {
   const trimmed = target?.trim().toLowerCase();
   if (!trimmed || trimmed === 'url' || trimmed === 'citation') return '';
   
   // 1. Direct index fallback for placeholders
   if (trimmed.includes('example.com') || trimmed.includes('wellness.com') || trimmed.length < 5) {
-    return validUrls[indexHint] || validUrls[0] || target;
+    return validUrls[indexHint] || validUrls[0] || (target ?? '');
   }
   
   // 2. Exact or substring match
   const match = validUrls.find(v => v.toLowerCase().includes(trimmed) || trimmed.includes(v.toLowerCase()));
-  return match || target;
+  return match ?? (target ?? '');
 }
 
 /**
@@ -207,11 +207,11 @@ export const agents = {
           .filter(s => !s.match(/const\s+|let\s+|var\s+|function\s*\(|{|}/));
 
       const data: ResearchData = {
-        summary: sections['Summary'] || 'No summary available',
-        keyPoints: extractBulletPoints(sections['Key Points']),
-        claims: extractBulletPoints(sections['Claims & Assertions']),
+        summary: sections['Summary'] ?? 'No summary available',
+        keyPoints: extractBulletPoints(sections['Key Points'] ?? ''),
+        claims: extractBulletPoints(sections['Claims & Assertions'] ?? ''),
         snippets: snippets.slice(0, 5),
-        reliability: sections['Reliability Assessment']?.split('\n')[0]?.replace('Score:', '').trim() || 'Medium'
+        reliability: sections['Reliability Assessment']?.split('\n')[0]?.replace('Score:', '').trim() ?? 'Medium'
       };
 
       return {
@@ -311,7 +311,7 @@ CLAIMS: ${t.data.claims.join('; ')}
       detailedAnalysis: cleanMarkdown(sections['Detailed Analysis'] || result),
       keyPoints: findings.map((f, i) => ({
         point: f.insight || f.point || '',
-        citation: matchUrl(f.url || f.citation || '', validUrls, i),
+        citation: matchUrl(f.url || f.citation, validUrls, i),
         snippet: ''
       })),
       conflictingClaims: conflicts.map(c => ({
@@ -324,7 +324,7 @@ CLAIMS: ${t.data.claims.join('; ')}
       verificationChecklist,
       sourceUsage: (sourcesAudit.length > 0 ? sourcesAudit : contributingTasks.map(t => ({ url: t.url, reliability: t.data.reliability, contribution: 'Analysis contribution' })))
         .map((s, i) => ({
-          url: matchUrl(s.url || '', validUrls, i),
+          url: matchUrl(s.url, validUrls, i),
           reliability: s.reliability || 'Medium',
           contribution: s.contribution || ''
         })),

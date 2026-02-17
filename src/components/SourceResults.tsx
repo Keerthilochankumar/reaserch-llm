@@ -88,7 +88,7 @@ export function SourceResults({ tasks }: SourceResultsProps) {
                     <div className="space-y-2">
                       {task.data.snippets.map((snippet: string, idx: number) => (
                         <div key={idx} className="p-3 bg-indigo-50/50 dark:bg-indigo-900/10 border-l-4 border-indigo-400 dark:border-indigo-600 text-[13px] text-zinc-700 dark:text-zinc-300 italic">
-                          "{snippet}"
+                          &quot;{snippet}&quot;
                         </div>
                       ))}
                     </div>

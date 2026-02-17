@@ -207,7 +207,7 @@ export function ResearchBrief({ data }: ResearchBriefProps) {
               <div>
                 <p className="text-xs text-zinc-500 mb-1 truncate">{source.url}</p>
                 <div className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed italic border-l-2 border-indigo-200 dark:border-indigo-900 pl-3">
-                   "{source.contribution}"
+                   &quot;{source.contribution}&quot;
                 </div>
               </div>
             </motion.div>
